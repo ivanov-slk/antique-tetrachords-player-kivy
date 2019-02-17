@@ -24,15 +24,16 @@ class MelodyInterface(abc.ABC):
 
 class Melody(MelodyInterface):
     '''
-    A melody comprised of various Tones.
+    A melody comprised of various Tones. It has a base tone and may have a name.
     '''
     # AF: Represents a sequence of tones
     # RI: True
     # SRE: the rep is mutable, so it is private and defensive copies are made if
     # necessary. "Finality" can't be enforced in Python.
     
-    def __init__(self, base_tone):
+    def __init__(self, base_tone, name=''):
         self._melody = [base_tone]
+        self._name = name
     
     @dispatch(Tone)
     def add_tone(self, tone):
@@ -73,3 +74,9 @@ class Melody(MelodyInterface):
     
     def get_melody(self):
         return deepcopy(self._melody)
+    
+    def set_name(self, new_name):
+        self._name = new_name
+        
+    def get_name(self):
+        return self._name
