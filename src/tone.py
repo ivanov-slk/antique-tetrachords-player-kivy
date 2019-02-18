@@ -22,15 +22,16 @@ class Tone(ToneInterface):
     # AF: represents a tone.
     # RI: self.frequency int or float
     
-    def __init__(self, frequency):
+    def __init__(self, frequency, duration=1):
         self._frequency = frequency
+        self._duration = duration
         self._check_rep()
         
-    def play(self, duration=1):
+    def play(self):
         '''
         Plays the tone for `duration` seconds.
         '''
-        sine(self._frequency, duration)
+        sine(self._frequency, self._duration)
         self._check_rep()
     
     @dispatch((int, float))        
@@ -74,6 +75,12 @@ class Tone(ToneInterface):
         
     def get_frequency(self):
         return self._frequency
+    
+    def get_duration(self):
+        return self._duration
+    
+    def set_duration(self, new_duration):
+        self._duration = new_duration
         
     def _calculate_cents(self, ratio):
         '''
