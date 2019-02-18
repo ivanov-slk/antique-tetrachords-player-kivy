@@ -29,7 +29,7 @@ class Tone(ToneInterface):
         
     def play(self):
         '''
-        Plays the tone for `duration` seconds.
+        Plays the tone.
         '''
         sine(self._frequency, self._duration)
         self._check_rep()
