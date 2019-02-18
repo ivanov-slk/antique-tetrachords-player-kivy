@@ -65,12 +65,12 @@ class Melody(MelodyInterface):
         new_tone = self._melody[-1].create_tone(interval)
         self._melody.append(new_tone)
         
-    def play(self):
+    def play(self, duration=1):
         '''
         Plays the melody.
         '''
         for tone in self._melody:
-            tone.play()
+            tone.play(duration)
     
     def get_melody(self):
         return deepcopy(self._melody)
