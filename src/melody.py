@@ -95,3 +95,6 @@ class Melody(MelodyInterface):
     def set_duration(self, duration):
         for tone in self._melody:
             tone.set_duration(duration)
+            
+    def accept(self, melody_visitor):
+        melody_visitor.visitMelody(self)
