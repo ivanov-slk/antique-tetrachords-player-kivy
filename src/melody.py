@@ -97,4 +97,4 @@ class Melody(MelodyInterface):
             tone.set_duration(duration)
             
     def accept(self, melody_visitor):
-        melody_visitor.visitMelody(self)
+        return melody_visitor.visitMelody(self)
