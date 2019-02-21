@@ -4,8 +4,8 @@ Created on Sun Feb 17 11:02:57 2019
 
 @author: Slav
 """
-import os
-os.chdir('../')
+#import os
+#os.chdir('../')
 from pysine import sine
 from math import log
 from src.tone import Tone

@@ -4,10 +4,10 @@ Created on Sun Feb 17 20:18:45 2019
 
 @author: Slav
 
-Натиснѝ зеленото триъгълниче горе.
+Отидѝ на main.py и оттам натиснѝ зеленото триъгълниче горе.
 """
-import os
-os.chdir('../')
+#import os
+#os.chdir('../')
 import pandas as pd
 import matplotlib.pyplot as plt
 from collections import OrderedDict
@@ -16,19 +16,24 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
+from kivy.uix.image import Image
 from src.various_melodies import melodies, names 
 from src.melodyvisitor import MelodyIntervalExtractor
 
 def callback(instance):
-    interval = melodies[instance.text].accept(gui.visitor) # this is definitely NOT the best way of handling the intervals and their graphing...
-    if instance.text not in gui.intervals.keys():
-        gui.intervals[instance.text] = interval
+    interval = melodies[instance.text].accept(tetrachords_app.visitor) # this is definitely NOT the best way of handling the intervals and their graphing...
+    if instance.text not in tetrachords_app.intervals.keys():
+        tetrachords_app.intervals[instance.text] = interval
     melodies[instance.text].play()
     
 def callback_chart(instance):
     try:
-        a = pd.DataFrame(gui.intervals)
-        a.T.plot(kind='bar', stacked=True, rot=0)
+        a = pd.DataFrame(tetrachords_app.intervals)
+        figure = a.T.plot(kind='bar', stacked=True, rot=0).get_figure()
+        figure.show()
+        plt.savefig('figure.png')
+        tetrachords_app.create_popup()
     except TypeError:
         print('Моля изпълнете поне един тетрахорд преди да поискате графика.')
     
@@ -85,6 +90,16 @@ class TetrachordsGUI(App):
         for melody in melodies.values():
             for tone in melody.get_melody():
                 tone.set_duration(duration)
+                
+    def create_popup(self):
+        content = BoxLayout(orientation = 'vertical')
+        button = Button(text='Затворѝ картинката', size_hint=(1, 0.1))
+        image = Image(source='figure.png')
+        image.reload()
+        content.add_widget(image)
+        content.add_widget(button)
+        popup = Popup(title='Сравнение на интервалите', content=content)
+        button.bind(on_press=popup.dismiss)
+        popup.open()
         
-gui = TetrachordsGUI()
-gui.run()
+tetrachords_app = TetrachordsGUI()

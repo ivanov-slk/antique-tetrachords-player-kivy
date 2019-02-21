@@ -6,8 +6,8 @@ Created on Sun Feb 17 20:06:04 2019
 
 Various melodies.
 """
-import os
-os.chdir('../')
+#import os
+#os.chdir('../')
 from src.tone import Tone
 from src.melody import Melody
 import time
