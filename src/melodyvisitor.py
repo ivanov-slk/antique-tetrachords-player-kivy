@@ -12,7 +12,14 @@ from math import log
 class MelodyVisitor(ABC):
     '''
     A visitor to Melody, which can add/alter existing functionalities.
+    (Not that this can't be directly added to Melody, but implementing a 
+    Visitor is more fun.)
     '''
+    @abstractmethod
+    def visitMelody(self):
+        pass
+    
+    
     
 class MelodyIntervalExtractor(MelodyVisitor):
     '''

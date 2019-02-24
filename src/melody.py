@@ -29,7 +29,7 @@ class Melody(MelodyInterface):
     # AF: Represents a sequence of tones
     # RI: True
     # SRE: the rep is mutable, so it is private and defensive copies are made if
-    # necessary. "Finality" can't be enforced in Python.
+    # necessary.
     
     def __init__(self, base_tone, name=''):
         self._melody = [base_tone]
@@ -81,10 +81,11 @@ class Melody(MelodyInterface):
     def get_name(self):
         return self._name
     
-    def get_duration(self):
+    def get_durations(self):
         duration_list = []
         for tone in self.get_melody():
             duration_list.append(tone.get_duration())
+        return duration_list
             
     @dispatch((list, tuple))
     def set_duration(self, duration):
@@ -96,5 +97,47 @@ class Melody(MelodyInterface):
         for tone in self._melody:
             tone.set_duration(duration)
             
+    def get_frequencies(self):
+        '''
+        Returns a list with the frequencies of the melody's tones.
+        '''
+        frequencies_list = []
+        for tone in self.get_melody():
+            frequencies_list.append(tone.get_frequency())
+        return frequencies_list
+    
+    def get_intervals(self):
+        '''
+        Returns a list with the intervals of the melody's tones.
+        '''
+        cents_list = [0]
+        frequency_list = self.get_frequencies()
+        for i in range(1, len(frequency_list)):
+            cents = 1200 * log((frequency_list[i] / frequency_list[i-1]), 2)
+            cents_list.append(cents)
+        return cents_list
+        
+    def set_base_frequency(self, new_base_frequency):
+        '''
+        Sets the base frequency to new_base_frequency and recalculates the
+        existing frequencies, so that the intervals of the melody stay the same.
+        
+        Parameters:
+            new_base_frequency: int/float - the new base frequency.
+            
+        Returns:
+            None.
+        '''
+        new_melody = []
+        intervals = self.get_intervals()
+        new_base_tone = Tone(frequency=new_base_frequency,
+                             duration=self._melody[0].get_duration())
+        new_melody.append(new_base_tone)
+        for i in range(1, len(self._melody)):
+            new_tone = new_melody[-1].create_tone(intervals[i])
+            new_tone.set_duration(self._melody[i].get_duration())
+            new_melody.append(new_tone)
+        self._melody = new_melody
+        
     def accept(self, melody_visitor):
         return melody_visitor.visitMelody(self)
