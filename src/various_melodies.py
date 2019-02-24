@@ -19,30 +19,6 @@ from src.melody import Melody
 import time
 import abc
 
-class MelodyCollection(abc.ABC):
-    '''
-    This class represents a collection of melodies, which can be played or tuned to
-    different frequency.
-    '''
-    @abc.abstractmethod
-    def add_melody(self):
-        pass
-    @abc.abstractmethod
-    def get_melody(self, melody_name):
-        pass
-    @abc.abstractmethod
-    def play_melody(self):
-        pass
-    @abc.abstractmethod
-    def play_all(self):
-        pass
-    @abc.abstractmethod
-    def change_base_frequency(self):
-        pass
-    @abc.abstractmethod
-    def change_all_base_frequencies(self):
-        pass
-
 tempered_dur = [200, 200, 100]
 tempered_moll = [200, 100, 200]
 archites_enharmonic = ['28/27', '36/35', '5/4']
@@ -83,7 +59,7 @@ names = ['Темпериран\nмажорен',
          'Птолемей\nдиатоничен\nравен',
          'Птолемей\nдиатоничен\nдвоен']
 
-ptolemy_chords = [tempered_dur,
+intervals = [tempered_dur,
                   tempered_moll,
                   archites_enharmonic,
                   eratosthenes_encharmonic,
@@ -106,8 +82,8 @@ ptolemy_chords = [tempered_dur,
 melodies = {}
 for i in range(len(names)):
     new_melody = Melody(Tone(250), names[i])
-    for j in range(len(ptolemy_chords[i])):
-        new_melody.add_tone(ptolemy_chords[i][j])
+    for j in range(len(intervals[i])):
+        new_melody.add_tone(intervals[i][j])
     melodies[names[i]] = new_melody
 
 #for melody in melodies.values():
