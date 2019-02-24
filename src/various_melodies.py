@@ -5,12 +5,43 @@ Created on Sun Feb 17 20:06:04 2019
 @author: Slav
 
 Various melodies.
+
+Направи го на клас - интерфейс КолекцияОтМелодии, който да има методи добавяне,
+получаване и - най-важното - пресмятане на интервалите на всяка мелодия според
+зададена честота (оправи и другата текстова кутийка в интерефейса). Този интерфейс
+може да има две конкретни имплементации (тук по-скоро йерархията е основен клас ->
+два конкретни наследника) - КолекцияОтАнтичниТетрахорди и КолекцияОтВизантийскиГласове.
 """
 #import os
 #os.chdir('../')
 from src.tone import Tone
 from src.melody import Melody
 import time
+import abc
+
+class MelodyCollection(abc.ABC):
+    '''
+    This class represents a collection of melodies, which can be played or tuned to
+    different frequency.
+    '''
+    @abc.abstractmethod
+    def add_melody(self):
+        pass
+    @abc.abstractmethod
+    def get_melody(self, melody_name):
+        pass
+    @abc.abstractmethod
+    def play_melody(self):
+        pass
+    @abc.abstractmethod
+    def play_all(self):
+        pass
+    @abc.abstractmethod
+    def change_base_frequency(self):
+        pass
+    @abc.abstractmethod
+    def change_all_base_frequencies(self):
+        pass
 
 tempered_dur = [200, 200, 100]
 tempered_moll = [200, 100, 200]

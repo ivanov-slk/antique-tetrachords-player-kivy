@@ -14,6 +14,10 @@ class ToneInterface(abc.ABC):
     @abc.abstractmethod
     def play(self):
         pass
+    
+    @abc.abstractmethod
+    def set_frequency(self):
+        pass
 
 class Tone(ToneInterface):
     '''
@@ -75,6 +79,12 @@ class Tone(ToneInterface):
         
     def get_frequency(self):
         return self._frequency
+    
+    def set_frequency(self, new_frequency):
+        try:
+            self._frequency = float(new_frequency)
+        except ValueError:
+            raise ValueError('Please supply an integer or a float.')
     
     def get_duration(self):
         return self._duration

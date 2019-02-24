@@ -37,14 +37,14 @@ class TestTone(unittest.TestCase):
         
     def test_play_two_tones_cent_interval(self):
         self.tone2 = self.tone.create_tone(100)
-        self.tone.play()
-        self.tone2.play()
+#        self.tone.play()
+#        self.tone2.play()
         self.assertLess(abs(self.tone2.get_frequency() - self.correct_H), 0.1)
     
     def test_play_two_tones_ratio_interval(self):
         self.tone2 = self.tone.create_tone('256/243')
-        self.tone.play()
-        self.tone2.play()
+#        self.tone.play()
+#        self.tone2.play()
         self.assertLess(abs(self.tone2.get_frequency() - self.tone._calculate_frequency(self.correct_cents)), 0.1)    
     
     def test_incorrect_ratio(self):    
@@ -55,6 +55,18 @@ class TestTone(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.tone2 = self.tone.create_tone('256243') # Any incorrect ratio should do the trick.    
             
+    def test_set_frequency_right(self):
+        self.tone.set_frequency(314.159)
+        self.assertEqual(self.tone.get_frequency(), 314.159)
+        
+    def test_set_frequency_right2(self):
+        self.tone.set_frequency('314.159')
+        self.assertEqual(self.tone.get_frequency(), 314.159)
+        
+    def test_set_frequency_wrong(self):
+        with self.assertRaises(ValueError):
+            self.tone.set_frequency('not a number')
+            
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestTone('test_calc_freq'))
@@ -63,6 +75,9 @@ def suite():
     suite.addTest(TestTone('test_play_two_tones_ratio_interval'))
     suite.addTest(TestTone('test_incorrect_ratio'))
     suite.addTest(TestTone('test_incorrect_ratio2'))
+    suite.addTest(TestTone('test_set_frequency_right'))
+    suite.addTest(TestTone('test_set_frequency_right2'))
+    suite.addTest(TestTone('test_set_frequency_wrong'))
     return suite
 
 if __name__ == '__main__':
