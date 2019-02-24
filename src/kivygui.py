@@ -32,19 +32,28 @@ def callback_chart(instance):
         a = pd.DataFrame(tetrachords_app.intervals)
         figure = a.T.plot(kind='bar', stacked=True, rot=0).get_figure()
         figure.show()
-        plt.savefig('figure.png')
-        tetrachords_app.create_popup()
+#        plt.savefig('figure.png')
+#        tetrachords_app.create_popup()
     except TypeError:
         print('Моля изпълнете поне един тетрахорд преди да поискате графика.')
     
-def on_text(instance, value):
+def change_duration(instance, value):
     if value == '' or value is None:
         duration = 1
     else:
         duration = float(value)
-    print(duration)
+    print('Duration: ', duration)
     for melody in melodies.values():
         melody.set_duration(duration)
+        
+def change_frequency(instance, value):
+    if value == '' or value is None:
+        frequency = 250
+    else:
+        frequency = float(value)
+    print('Frequency": ', frequency)
+    for melody in melodies.values():
+        melody.set_base_frequency(frequency)
         
 class TetrachordsGUI(App):
     def __init__(self, **kwargs):
@@ -59,14 +68,14 @@ class TetrachordsGUI(App):
         frequency_text = Label(text='Изберете базова честота \n(не действа все още): ')
         settings.add_widget(frequency_text)
         frequency_input = TextInput(multiline=False)
-        frequency_input.bind(text=on_text)
+        frequency_input.bind(text=change_frequency)
         settings.add_widget(frequency_input)
         duration_text = Label(text='Изберете продължителност \nна тона (сек.)')
         settings.add_widget(duration_text)
         duration_input = TextInput(multiline=False)
-        duration_input.bind(text=on_text)
+        duration_input.bind(text=change_duration)
         print(duration_input.text)
-        button_chart = Button(text='Натиснете за показване на графиката.')
+        button_chart = Button(text='Натиснете за показване\nна графиката.')
         button_chart.bind(on_press=callback_chart)
         settings.add_widget(duration_input)
         settings.add_widget(button_chart)
@@ -85,11 +94,11 @@ class TetrachordsGUI(App):
             self.main_layout.add_widget(layout)
         return self.main_layout
         
-    def change_duration(self, instance, value):
-        duration = self.main_layout.children[0].children[0].text
-        for melody in melodies.values():
-            for tone in melody.get_melody():
-                tone.set_duration(duration)
+#    def change_duration(self, instance, value):
+#        duration = self.main_layout.children[0].children[0].text
+#        for melody in melodies.values():
+#            for tone in melody.get_melody():
+#                tone.set_duration(duration)
                 
     def create_popup(self):
         content = BoxLayout(orientation = 'vertical')
