@@ -81,7 +81,7 @@ class MelodyCollection(MelodyCollectionInterface):
         new_melody = Melody(base_tone, name=melody_name)
         # loop over the intervals and add new tones to the melody
         for interval in intervals:
-            new_melody.add_tone(interval)
+            new_melody.add_tone(interval, 1)
         # add the new melody into the collection
     
     def get_melody(self, melody_name):

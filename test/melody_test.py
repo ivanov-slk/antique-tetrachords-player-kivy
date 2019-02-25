@@ -28,18 +28,18 @@ class TestMelody(unittest.TestCase):
         pass
         
     def test_add_tone_float(self):
-        self.melody.add_tone(90.225)
+        self.melody.add_tone(90.225, 1)
         self.assertEqual(len(self.melody.get_melody()), 2)
         self.assertLess(abs(self.melody.get_melody()[-2]._calculate_frequency(90.225)\
                              - (self.melody.get_melody()[-1].get_frequency())), 0.1)
     
     def test_add_tone_int(self):
-        self.melody.add_tone(100)
+        self.melody.add_tone(100, 1)
         self.assertEqual(len(self.melody.get_melody()), 2)
         self.assertLess(abs(self.melody.get_melody()[-1].get_frequency()-466.16), 0.1)
         
     def test_add_tone_string(self):
-        self.melody.add_tone('256/243')
+        self.melody.add_tone('256/243', 1)
         self.assertEqual(len(self.melody.get_melody()), 2)
         self.assertLess(abs(self.melody.get_melody()[-1]._calculate_cents('256/243')\
                              - 90.225), 0.1)

@@ -12,8 +12,8 @@ Various melodies.
 може да има две конкретни имплементации (тук по-скоро йерархията е основен клас ->
 два конкретни наследника) - КолекцияОтАнтичниТетрахорди и КолекцияОтВизантийскиГласове.
 """
-#import os
-#os.chdir('../')
+import os
+os.chdir('../')
 from src.tone import Tone
 from src.melody import Melody
 import time
@@ -83,7 +83,7 @@ melodies = {}
 for i in range(len(names)):
     new_melody = Melody(Tone(250), names[i])
     for j in range(len(intervals[i])):
-        new_melody.add_tone(intervals[i][j])
+        new_melody.add_tone(intervals[i][j], 1)
     melodies[names[i]] = new_melody
 
 #for melody in melodies.values():

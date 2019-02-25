@@ -39,7 +39,7 @@ class Tone(ToneInterface):
         self._check_rep()
     
     @dispatch((int, float), (int, float))
-    def create_tone(self, interval, duration=1):
+    def create_tone(self, interval, duration):
         '''
         Creates a new tone which is an `interval` higher than `self`.
         
@@ -56,7 +56,7 @@ class Tone(ToneInterface):
         return new_tone # this can be reduced to one line, but let's stay clear.
         
     @dispatch(str, (int, float)) 
-    def create_tone(self, interval, duration=1):
+    def create_tone(self, interval, duration):
         '''
         Creates a new tone which is an `interval` higher than `self`.
         
