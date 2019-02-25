@@ -55,7 +55,8 @@ class TestMelody(unittest.TestCase):
                      intervals=['32/31', '31/30', '5/4'],
                      melody_name='Дидим\nенхармоничен')
         result = self.mel.get_intervals('Дидим\nенхармоничен')
-            
+        correct = [0, 54.9644275357497, 56.766857734028186, 386.3137138648348]
+        self.assertTrue(result, correct)
         
 def suite():
     suite = unittest.TestSuite()

@@ -44,15 +44,15 @@ class Melody(MelodyInterface):
         '''
         self._melody.append(tone)
         
-    @dispatch((float, int))
-    def add_tone(self, interval):
+    @dispatch((float, int). (int, float))
+    def add_tone(self, interval, duration=1):
         '''
         Add a tone to the end of the melody by taking an interval from the last
         tone in Melody.
         Parameters:
             interval: float
         '''
-        new_tone = self._melody[-1].create_tone(interval)
+        new_tone = self._melody[-1].create_tone(interval, duration)
         self._melody.append(new_tone)
         
     @dispatch(str)

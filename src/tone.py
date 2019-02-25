@@ -38,8 +38,8 @@ class Tone(ToneInterface):
         sine(self._frequency, self._duration)
         self._check_rep()
     
-    @dispatch((int, float))        
-    def create_tone(self, interval):
+    @dispatch((int, float), (int, float))
+    def create_tone(self, interval, duration=1):
         '''
         Creates a new tone which is an `interval` higher than `self`.
         
@@ -55,8 +55,8 @@ class Tone(ToneInterface):
         self._check_rep()
         return new_tone # this can be reduced to one line, but let's stay clear.
         
-    @dispatch(str) 
-    def create_tone(self, interval):
+    @dispatch(str, (int, float)) 
+    def create_tone(self, interval, duration=1):
         '''
         Creates a new tone which is an `interval` higher than `self`.
         
@@ -73,7 +73,7 @@ class Tone(ToneInterface):
             raise ValueError('Incorrect interval supplied. Should be a valid ratio in the form a/b')
         cents = 1200 * log((a/b), 2)
         new_frequency = self._calculate_frequency(cents)
-        new_tone = Tone(new_frequency)
+        new_tone = Tone(new_frequency, duration)
         self._check_rep()
         return new_tone
         
