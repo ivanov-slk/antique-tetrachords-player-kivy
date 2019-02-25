@@ -42,7 +42,7 @@ class TestMelody(unittest.TestCase):
         new_melody = melodies['Ератостен\nенхармоничен']
         new_name = 'Ератостен\nенхармоничен'
         self.mel.add_melody(new_melody, new_name)
-        result = self.mel.get_intervals('Ератостен\nенхармоничен')
+        result = self.mel.get_melody('Ератостен\nенхармоничен').get_intervals()
         correct = [0, 43.83105123013666, 44.969646502395555, 409.2443014020803]
         self.assertTrue(result, correct)
         
@@ -54,7 +54,7 @@ class TestMelody(unittest.TestCase):
         self.mel.add_melody(base_frequency=250,
                      intervals=['32/31', '31/30', '5/4'],
                      melody_name='Дидим\nенхармоничен')
-        result = self.mel.get_intervals('Дидим\nенхармоничен')
+        result = self.mel.get_melody('Дидим\nенхармоничен').get_intervals()
         correct = [0, 54.9644275357497, 56.766857734028186, 386.3137138648348]
         self.assertTrue(result, correct)
         
@@ -62,6 +62,8 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestMelody('test_play_one_melody'))
     suite.addTest(TestMelody('test_play_all_melodies'))
+    suite.addTest(TestMelody('test_add_melody_1'))
+    suite.addTest(TestMelody('test_add_melody_2'))
     return suite
 
 if __name__ == '__main__':

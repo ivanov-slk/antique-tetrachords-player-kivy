@@ -59,7 +59,10 @@ class MelodyCollection(MelodyCollectionInterface):
         '''
         self._collection[melody_name] = melody
         
-    @dispatch((int, float), (int, float, str), str, (int, float))
+    @dispatch(base_frequency=(int, float), 
+              intervals=[(int, float, str)], 
+              melody_name=str, 
+              durations=(int, float))
     def add_melody(self, base_frequency, intervals, melody_name, durations=[1]):
         '''
         Adds a new melody to the collection by calculating the intervals.
@@ -83,6 +86,7 @@ class MelodyCollection(MelodyCollectionInterface):
         for interval in intervals:
             new_melody.add_tone(interval, 1)
         # add the new melody into the collection
+        self._collection[melody_name] = new_melody
     
     def get_melody(self, melody_name):
         return self._collection[melody_name]
