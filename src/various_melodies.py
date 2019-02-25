@@ -22,9 +22,9 @@ import abc
 tempered_dur = [200, 200, 100]
 tempered_moll = [200, 100, 200]
 archites_enharmonic = ['28/27', '36/35', '5/4']
-eratosthenes_encharmonic = ['40/39', '39/38', '19/15']
-didimes_encharmonic = ['32/31', '31/30', '5/4']
-ptolemy_encharmonic = ['46/45', '24/23', '5/4']
+eratosthenes_enharmonic = ['40/39', '39/38', '19/15']
+didimes_enharmonic = ['32/31', '31/30', '5/4']
+ptolemy_enharmonic = ['46/45', '24/23', '5/4']
 archites_chromatic = ['28/27', '243/224', '32/27']
 eratosthenes_chromatic = ['20/19', '19/18', '6/5']
 didimes_chromatic = ['16/15', '25/24', '6/5']
@@ -62,9 +62,9 @@ names = ['Темпериран\nмажорен',
 intervals = [tempered_dur,
                   tempered_moll,
                   archites_enharmonic,
-                  eratosthenes_encharmonic,
-                  didimes_encharmonic,
-                  ptolemy_encharmonic,
+                  eratosthenes_enharmonic,
+                  didimes_enharmonic,
+                  ptolemy_enharmonic,
                   archites_chromatic,
                   eratosthenes_chromatic,
                   didimes_chromatic,

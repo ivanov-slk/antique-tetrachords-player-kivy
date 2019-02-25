@@ -34,6 +34,29 @@ class TestMelody(unittest.TestCase):
         self.mel.add_melody(melodies['Архит\nенхармоничен'], 'Архит\nенхармоничен')
         self.mel.play_all()
         
+    def test_add_melody_1(self):
+        '''
+        Create externally a new melody, add it and compare its intervals with 
+        the correct intervals (calculated manually).
+        '''
+        new_melody = melodies['Ератостен\nенхармоничен']
+        new_name = 'Ератостен\nенхармоничен'
+        self.mel.add_melody(new_melody, new_name)
+        result = self.mel.get_intervals('Ератостен\nенхармоничен')
+        correct = [0, 43.83105123013666, 44.969646502395555, 409.2443014020803]
+        self.assertTrue(result, correct)
+        
+    def test_add_melody_2(self):
+        '''
+        Create a new melody internally and compare its intervals with the correct
+        ones.
+        '''
+        self.mel.add_melody(base_frequency=250,
+                     intervals=['32/31', '31/30', '5/4'],
+                     melody_name='Дидим\nенхармоничен')
+        result = self.mel.get_intervals('Дидим\nенхармоничен')
+            
+        
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestMelody('test_play_one_melody'))

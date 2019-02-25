@@ -59,8 +59,8 @@ class MelodyCollection(MelodyCollectionInterface):
         '''
         self._collection[melody_name] = melody
         
-    @dispatch((int, float), (int, float), str)
-    def add_melody(self, melody, melody_name):
+    @dispatch((int, float), (int, float, str), str, (int, float))
+    def add_melody(self, base_frequency, intervals, melody_name, durations=[]):
         '''
         Adds a new melody to the collection by calculating the intervals.
         The melody is as long as the intervals list. Durations are taken up to
@@ -68,10 +68,10 @@ class MelodyCollection(MelodyCollectionInterface):
         default duration (1 s.) is taken for the rest of the tones.
         
         Parameters:
-            base_frequency: int/float - the base frequency of the melody
-            intervals: list of valid intervals (i.e. cents or ratios)
-            durations: list of valid durations (int/float)
-            melody_name: str; the name of the melody
+            base_frequency: int/float - the base frequency of the melody;
+            intervals: list of valid intervals (i.e. cents or ratios);
+            melody_name: str; the name of the melody;
+            durations: list of valid durations (int/float);
             
         Returns:
             None.
