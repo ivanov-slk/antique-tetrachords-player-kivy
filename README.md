@@ -9,4 +9,4 @@ https://antique-tetrachords.firebaseapp.com/
 
 Source: Gertzman, E. - The musical thinking in the Antiquity // Герцман, Е. - Античное музыкальное мышление
 
-## This is not in active development (obviously).
+## The whole thing was developed some time ago and is obviously not in active development nor maintenance.
