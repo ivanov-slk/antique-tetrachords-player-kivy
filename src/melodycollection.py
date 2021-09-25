@@ -5,6 +5,7 @@ Created on Sun Feb 24 20:51:23 2019
 @author: Slav
 """
 import os
+
 os.chdir('../')
 from src.tone import Tone
 from src.melody import Melody
@@ -12,6 +13,7 @@ from src.various_melodies import names, intervals
 from multipledispatch import dispatch
 from collections import OrderedDict
 import abc
+
 
 class MelodyCollectionInterface(abc.ABC):
     '''
@@ -21,22 +23,28 @@ class MelodyCollectionInterface(abc.ABC):
     @abc.abstractmethod
     def add_melody(self):
         pass
+
     @abc.abstractmethod
     def get_melody(self, melody_name):
         pass
+
     @abc.abstractmethod
     def play_melody(self, melody_name):
         pass
+
     @abc.abstractmethod
     def play_all(self):
         pass
+
     @abc.abstractmethod
     def change_base_frequency(self, melody_name, new_frequency):
         pass
+
     @abc.abstractmethod
     def change_all_base_frequencies(self, new_frequency):
         pass
-    
+
+
 class MelodyCollection(MelodyCollectionInterface):
     # AF: Represents a sequence of tones
     # RI: True
@@ -44,7 +52,7 @@ class MelodyCollection(MelodyCollectionInterface):
     # necessary.
     def __init__(self):
         self._collection = OrderedDict()
-        
+
     @dispatch(Melody, str)
     def add_melody(self, melody, melody_name):
         '''
@@ -58,12 +66,16 @@ class MelodyCollection(MelodyCollectionInterface):
             None.
         '''
         self._collection[melody_name] = melody
-        
-    @dispatch(base_frequency=(int, float), 
-              intervals=[(int, float, str)], 
-              melody_name=str, 
+
+    @dispatch(base_frequency=(int, float),
+              intervals=[(int, float, str)],
+              melody_name=str,
               durations=(int, float))
-    def add_melody(self, base_frequency, intervals, melody_name, durations=[1]):
+    def add_melody(self,
+                   base_frequency,
+                   intervals,
+                   melody_name,
+                   durations=[1]):
         '''
         Adds a new melody to the collection by calculating the intervals.
         The melody is as long as the intervals list. Durations are taken up to
@@ -87,20 +99,20 @@ class MelodyCollection(MelodyCollectionInterface):
             new_melody.add_tone(interval, 1)
         # add the new melody into the collection
         self._collection[melody_name] = new_melody
-    
+
     def get_melody(self, melody_name):
         return self._collection[melody_name]
-    
+
     def play_melody(self, melody_name):
         self._collection[melody_name].play()
-        
+
     def play_all(self):
         for melody in self._collection.values():
             melody.play()
-            
+
     def change_base_frequency(self, melody_name, new_frequency):
         self._collection[melody_name].set_base_frequency(new_frequency)
-        
+
     def change_all_base_frequencies(self, new_frequency):
         for melody in self._collection:
             melody.set_base_frequency(new_frequency)
